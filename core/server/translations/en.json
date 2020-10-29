@@ -250,7 +250,7 @@
             "member": {
                 "memberAlreadyExists": {
                     "message": "Member already exists",
-                    "context": "Attempting to add member with existing email address."
+                    "context": "Attempting to {action} member with existing email address."
                 }
             },
             "member_stripe_customer": {
@@ -302,7 +302,6 @@
         },
         "api": {
             "common": {
-                "invalidTokenStructure": "Invalid token structure",
                 "notImplemented": "The server does not support the functionality required to fulfill the request."
             },
             "authentication": {
@@ -316,11 +315,24 @@
                 "setupAlreadyCompleted": "Setup has already been completed.",
                 "unableToSendWelcomeEmail": "Unable to send welcome email, your site will continue to function.",
                 "checkEmailConfigInstructions": "Please see {url} for instructions on configuring email.",
-                "notLoggedIn": "You are not logged in.",
-                "notTheBlogOwner": "You are not the site owner.",
-                "invalidTokenTypeHint": "Invalid token_type_hint given.",
-                "invalidTokenProvided": "Invalid token provided",
-                "tokenRevocationFailed": "Token revocation failed"
+                "notTheBlogOwner": "You are not the site owner."
+            },
+            "passwordReset": {
+                "expired": {
+                    "message": "Cannot reset password.",
+                    "context": "Password reset link expired.",
+                    "help": "Request a new password reset via the login form."
+                },
+                "invalidToken": {
+                    "message": "Cannot reset password.",
+                    "context": "Password reset link has already been used.",
+                    "help": "Request a new password reset via the login form."
+                },
+                "corruptedToken": {
+                    "message": "Cannot reset password.",
+                    "context": "Invalid password reset link.",
+                    "help": "Check if password reset link has been fully copied or request new password reset via the login form."
+                }
             },
             "configuration": {
                 "invalidKey": "Invalid key"
@@ -387,8 +399,8 @@
             "members": {
                 "memberNotFound": "Member not found.",
                 "stripeNotConnected": {
-                    "message": "Missing Stripe connection",
-                    "context": "Attempting to import members with Stripe data when there is no Stripe account connected",
+                    "message": "Missing Stripe connection.",
+                    "context": "Attempting to import members with Stripe data when there is no Stripe account connected.",
                     "help": "You need to connect to Stripe to import Stripe customers. "
                 },
                 "stripeCustomerNotFound": {
@@ -449,6 +461,11 @@
                 "invalidIdProvided": "Invalid id provided."
             },
             "invites": {
+                "inviteEmailAlreadyExist": {
+                    "message": "Could not create an account, email is already in use.",
+                    "context": "Attempting to create an account with existing email address.",
+                    "help": "Use different email address to register your account."
+                },
                 "inviteNotFound": "Invite not found.",
                 "inviteExpired": "Invite is expired.",
                 "emailIsRequired": "E-Mail is required.",
@@ -468,6 +485,10 @@
                 },
                 "noIntegrationIdProvided": {
                     "context": "You may only create webhooks with 'integration_id' when using session authentication."
+                },
+                "nonExistingIntegrationIdProvided": {
+                    "context": "'integration_id' value does not match any existing integration.",
+                    "help": "Provide the 'integration_id' of an existing integration."
                 },
                 "webhookAlreadyExists": "Target URL has already been used for this event."
             },
@@ -499,6 +520,10 @@
                 "HostLimitError": "Host Limit error, cannot {action}.",
                 "DisabledFeatureError": "Theme validation error, the {{{helperName}}} helper is not available. Cannot {action}.",
                 "UpdateCollisionError": "Saving failed! Someone else is editing this post."
+            },
+            "snippets": {
+                "snippetNotFound": "Snippet not found.",
+                "snippetAlreadyExists": "Snippet already exists"
             }
         },
         "data": {
@@ -556,7 +581,7 @@
             },
             "mega": {
                 "requestFailed": {
-                    "error" : "The email service was unable to send an email batch."
+                    "error": "The email service was unable to send an email batch."
                 }
             }
         },
@@ -694,7 +719,7 @@
                     "valueIsNotInteger": "Value in [{tableName}.{columnKey}] is not an integer.",
                     "themeCannotBeActivated": "{themeName} cannot be activated because it is not currently installed.",
                     "validationFailed": "Validation ({validationName}) failed for {key}",
-                    "schemaValidationFailed": "Validation failed for '{key}'",
+                    "schemaValidationFailed": "Validation failed for '{key}'.",
                     "validationFailedTypes": {
                         "isLength": "Value in [{tableName}.{key}] exceeds maximum length of {max} characters."
                     }

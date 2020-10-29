@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const logging = require('../../../shared/logging');
-const config = require('../../../shared/config');
 const labsService = require('../labs');
 const membersService = require('./index');
 const urlUtils = require('../../../shared/url-utils');
@@ -90,7 +89,12 @@ const updateMemberData = async function (req, res) {
 
 const getMemberSiteData = async function (req, res) {
     const isStripeConfigured = membersService.config.isStripeConnected();
-
+    const domain = urlUtils.urlFor('home', true).match(new RegExp('^https?://([^/:?#]+)(?:[/:?#]|$)', 'i'));
+    const blogDomain = domain && domain[1];
+    let supportAddress = settingsCache.get('members_support_address') || 'noreply';
+    if (!supportAddress.includes('@')) {
+        supportAddress = `${supportAddress}@${blogDomain}`;
+    }
     const response = {
         title: settingsCache.get('title'),
         description: settingsCache.get('description'),
@@ -107,13 +111,9 @@ const getMemberSiteData = async function (req, res) {
         portal_plans: settingsCache.get('portal_plans'),
         portal_button_icon: settingsCache.get('portal_button_icon'),
         portal_button_signup_text: settingsCache.get('portal_button_signup_text'),
-        portal_button_style: settingsCache.get('portal_button_style')
+        portal_button_style: settingsCache.get('portal_button_style'),
+        members_support_address: supportAddress
     };
-
-    // accent_color is currently an experimental feature
-    if (!config.get('enableDeveloperExperiments')) {
-        delete response.accent_color;
-    }
 
     res.json({site: response});
 };
