@@ -13,7 +13,7 @@ function getTitle(data, root, options = {}) {
     let pageString = '';
 
     if (pagination && pagination.total > 1) {
-        pageString = _.has(options.hash, 'page') ? options.hash.page.replace('%', pagination.page) : ' - Blog';
+        pageString = _.has(options.hash, 'page') ? options.hash.page.replace('%', pagination.page) : ' | Il Blog';
     }
 
     // If there's a specific meta title
