@@ -72,7 +72,7 @@ function send(message, recipientData, replacements) {
         messageData = {
             to: Object.keys(recipientData),
             from: message.from,
-            'h:Reply-To': message.replyTo,
+            'h:Reply-To': message.replyTo || message.reply_to,
             subject: messageContent.subject,
             html: messageContent.html,
             text: messageContent.plaintext,
@@ -84,9 +84,11 @@ function send(message, recipientData, replacements) {
             messageData['v:email-id'] = message.id;
         }
 
+        const tags = ['bulk-email'];
         if (bulkEmailConfig && bulkEmailConfig.mailgun && bulkEmailConfig.mailgun.tag) {
-            messageData['o:tag'] = [bulkEmailConfig.mailgun.tag, 'bulk-email'];
+            tags.push(bulkEmailConfig.mailgun.tag);
         }
+        messageData['o:tag'] = tags;
 
         if (bulkEmailConfig && bulkEmailConfig.mailgun && bulkEmailConfig.mailgun.testmode) {
             messageData['o:testmode'] = true;
